@@ -1,11 +1,11 @@
-import { Field, GraphQLISODateTime, Float, ObjectType } from 'type-graphql';
+import { Field, GraphQLISODateTime, Int, ObjectType } from 'type-graphql';
 
 @ObjectType({ description: 'A Star Wars film' })
 export default class Film {
     @Field(() => String, { description: 'Title of the film' })
     public title!: string;
 
-    @Field(() => Float, { description: 'Episode number of the film' })
+    @Field(() => Int, { description: 'Episode number of the film' })
     public episode_id!: number;
 
     @Field(() => String, { description: 'Opening crawl text of the film' })
@@ -19,4 +19,19 @@ export default class Film {
 
     @Field(() => GraphQLISODateTime, { description: 'Release date of the film' })
     public release_date!: Date;
+
+    @Field(() => [String], { description: 'Characters in the film' })
+    public characters!: string[];
+
+    @Field(() => [String], { description: 'Planets in the film' })
+    public planets!: string[];
+
+    @Field(() => [String], { description: 'Starships in the film' })
+    public starships!: string[];
+
+    @Field(() => [String], { description: 'Vehicles in the film' })
+    public vehicles!: string[];
+
+    @Field(() => [String], { description: 'Species in the film' })
+    public species!: string[];
 }

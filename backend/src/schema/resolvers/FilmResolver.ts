@@ -2,7 +2,7 @@ import { Service } from 'typedi';
 import { Query, Resolver, Arg } from 'type-graphql';
 
 import Film from '@/schema/typeDefs/Film';
-import { FilmService } from '@/services/FilmService';
+import { FilmService } from '@/services/data/FilmService';
 
 @Service()
 @Resolver(Film)

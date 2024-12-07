@@ -19,7 +19,9 @@ export const getApp = async () => {
         helmet({
             contentSecurityPolicy: {
                 directives: {
-                    'frame-ancestors': ["'self'"]
+                    'frame-ancestors': ["'self'"],
+                    scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+                    frameSrc: [`'self'`, 'sandbox.embed.apollographql.com']
                 }
             }
         })
