@@ -2,17 +2,17 @@ import { Service } from 'typedi';
 import { Query, Resolver, Arg } from 'type-graphql';
 
 import Starship from '@/schema/typeDefs/Starship';
-import { StarshipService } from '@/services/data/StarshipService';
+import { DataService } from '@/services/DataService';
 
 @Service()
 @Resolver(Starship)
 export default class StarshipResolver {
-    constructor(private readonly starshipService: StarshipService) {}
+    constructor(private readonly dataService: DataService) {}
     @Query(() => [Starship], {
         description: 'Gets all starships of all Star Wars films'
     })
     public async allStarships(): Promise<[Starship]> {
-        const starships = await this.starshipService.getAll();
+        const starships = await this.dataService.getAll('starships');
 
         return starships;
     }
@@ -21,7 +21,7 @@ export default class StarshipResolver {
         description: 'Gets one Star Wars starship by ID'
     })
     public async starship(@Arg('id') id: number): Promise<Starship> {
-        const starship = await this.starshipService.getOne(id);
+        const starship = await this.dataService.getOne('starships', id);
 
         return starship;
     }
