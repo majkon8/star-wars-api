@@ -1,5 +1,8 @@
 import { Field, ObjectType } from 'type-graphql';
 
+import Film from '@/schema/typeDefs/Film';
+import Person from '@/schema/typeDefs/Person';
+
 @ObjectType({ description: 'A Star Wars vehicle' })
 export default class Vehicle {
     @Field(() => String, {
@@ -42,9 +45,9 @@ export default class Vehicle {
     @Field(() => String, { description: 'The class of this vehicle, such as "Wheeled" or "Repulsorcraft".' })
     public vehicle_class!: string;
 
-    @Field(() => [String], { description: 'An array of People URL Resources that this vehicle has been piloted by.' })
+    @Field(() => [Person], { description: 'An array of people that this vehicle has been piloted by.' })
     public pilots!: string[];
 
-    @Field(() => [String], { description: 'An array of Film URL Resources that this vehicle has appeared in.' })
+    @Field(() => [Film], { description: 'An array of films that this vehicle has appeared in.' })
     public films!: string[];
 }

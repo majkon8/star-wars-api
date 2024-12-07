@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { Query, Resolver, Arg } from 'type-graphql';
+import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import Vehicle from '@/schema/typeDefs/Vehicle';
 import { DataService } from '@/services/DataService';
@@ -24,5 +24,15 @@ export default class VehicleResolver {
         const vehicle = await this.dataService.getOne('vehicles', id);
 
         return vehicle;
+    }
+
+    @FieldResolver()
+    async pilots(@Root() vehicle: Vehicle) {
+        return this.dataService.getAdditionalData(vehicle.pilots, 'people');
+    }
+
+    @FieldResolver()
+    async films(@Root() vehicle: Vehicle) {
+        return this.dataService.getAdditionalData(vehicle.films, 'films');
     }
 }

@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { Query, Resolver, Arg } from 'type-graphql';
+import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import Species from '@/schema/typeDefs/Species';
 import { DataService } from '@/services/DataService';
@@ -24,5 +24,15 @@ export default class SpeciesResolver {
         const species = await this.dataService.getOne('species', id);
 
         return species;
+    }
+
+    @FieldResolver()
+    async people(@Root() species: Species) {
+        return this.dataService.getAdditionalData(species.people, 'people');
+    }
+
+    @FieldResolver()
+    async films(@Root() species: Species) {
+        return this.dataService.getAdditionalData(species.films, 'films');
     }
 }

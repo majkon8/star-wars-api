@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { Query, Resolver, Arg } from 'type-graphql';
+import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import Planet from '@/schema/typeDefs/Planet';
 import { DataService } from '@/services/DataService';
@@ -24,5 +24,15 @@ export default class PlanetResolver {
         const planet = await this.dataService.getOne('planets', id);
 
         return planet;
+    }
+
+    @FieldResolver()
+    async residents(@Root() planet: Planet) {
+        return this.dataService.getAdditionalData(planet.residents, 'people');
+    }
+
+    @FieldResolver()
+    async films(@Root() planet: Planet) {
+        return this.dataService.getAdditionalData(planet.films, 'films');
     }
 }
