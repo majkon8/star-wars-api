@@ -2,53 +2,62 @@ import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType({ description: 'A Star Wars starship' })
 export default class Starship {
-    @Field(() => String, { description: 'Name of the starship' })
+    @Field(() => String, { description: 'The name of this starship. The common name, such as "Death Star".' })
     public name!: string;
 
-    @Field(() => String, { description: 'Model of the starship' })
+    @Field(() => String, {
+        description:
+            'The model or official name of this starship. Such as "T-65 X-wing" or "DS-1 Orbital Battle Station".'
+    })
     public model!: string;
 
-    @Field(() => String, { description: 'Manufacturer of the starship' })
+    @Field(() => String, { description: 'The manufacturer of this starship. Comma separated if more than one.' })
     public manufacturer!: string;
 
-    @Field(() => String, { description: 'Cost in credits of the starship' })
+    @Field(() => String, { description: 'The cost of this starship new, in galactic credits.' })
     public cost_in_credits!: string;
 
-    @Field(() => String, { description: 'Length the starship' })
+    @Field(() => String, { description: 'The length of this starship in meters.' })
     public length!: string;
 
-    @Field(() => String, { description: 'Max speed in the atmosphere of the starship' })
+    @Field(() => String, {
+        description:
+            'The maximum speed of this starship in the atmosphere. "N/A" if this starship is incapable of atmospheric flight.'
+    })
     public max_atmosphering_speed!: string;
 
-    @Field(() => String, { description: 'Number of personnel needed to run the starship' })
+    @Field(() => String, { description: 'The number of personnel needed to run or pilot this starship.' })
     public crew!: string;
 
-    @Field(() => String, { description: 'Number of people the starship can transport' })
+    @Field(() => String, { description: 'The number of non-essential people this starship can transport.' })
     public passengers!: string;
 
-    @Field(() => String, { description: 'Maximum weight of cargo the starship can transport' })
+    @Field(() => String, { description: 'The maximum number of kilograms that this starship can transport.' })
     public cargo_capacity!: string;
 
     @Field(() => String, {
         description:
-            'The maximum length of time that the starship can provide consumables for its entire crew without having to resupply'
+            'The maximum length of time that this starship can provide consumables for its entire crew without having to resupply.'
     })
     public consumables!: string;
 
-    @Field(() => String, { description: 'The class of the starships hyperdrive' })
+    @Field(() => String, { description: 'The class of this starships hyperdrive.' })
     public hyperdrive_rating!: string;
 
     @Field(() => String, {
-        description: 'The maximum number of Megalights the starship can travel in a standard hour.'
+        description:
+            'The Maximum number of Megalights this starship can travel in a standard hour. A "Megalight" is a standard unit of distance and has never been defined before within the Star Wars universe. This figure is only really useful for measuring the difference in speed of starships. We can assume it is similar to AU, the distance between our Sun (Sol) and Earth.'
     })
     public MGLT!: string;
 
-    @Field(() => String, { description: 'Class of the starship' })
+    @Field(() => String, {
+        description: 'The class of this starship, such as "Starfighter" or "Deep Space Mobile Battlestation"'
+    })
     public starship_class!: string;
 
-    @Field(() => [String], { description: 'Known people that piloted the starship' })
+    @Field(() => [String], { description: 'An array of People URL Resources that this starship has been piloted by.' })
     public pilots!: string[];
 
-    @Field(() => [String], { description: 'Films that the starship occurred in' })
+    @Field(() => [String], { description: 'An array of Film URL Resources that this starship has appeared in.' })
     public films!: string[];
 }
