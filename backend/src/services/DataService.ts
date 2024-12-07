@@ -46,11 +46,6 @@ export class DataService {
     private async getMany(resource: Resource, ids: string[]): Promise<Person[]> {
         const requests = ids.map(id => this.getOne(resource, +id));
 
-        // for (const id of ids) {
-        //     console.log(resource);
-        //     console.log(+id);
-        // }
-
         const data = await Promise.all(requests);
 
         return data;
