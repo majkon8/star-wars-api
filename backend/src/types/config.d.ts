@@ -24,4 +24,5 @@ export interface IConfig {
     app: IAppConfig;
     redisCache: IRedisConfig;
     cache: ICacheConfig;
+    swapiUrl: string;
 }
