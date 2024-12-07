@@ -1,5 +1,11 @@
 import { Field, GraphQLISODateTime, Int, ObjectType } from 'type-graphql';
 
+import Person from '@/schema/typeDefs/Person';
+import Planet from '@/schema/typeDefs/Planet';
+import Starship from '@/schema/typeDefs/Starship';
+import Vehicle from '@/schema/typeDefs/Vehicle';
+import Species from '@/schema/typeDefs/Species';
+
 @ObjectType({ description: 'A Star Wars film' })
 export default class Film {
     @Field(() => String, { description: 'The title of this film.' })
@@ -22,18 +28,18 @@ export default class Film {
     })
     public release_date!: Date;
 
-    @Field(() => [String], { description: 'An array of people resource URLs that are in this film.' })
+    @Field(() => [Person], { description: 'An array of people that are in this film.' })
     public characters!: string[];
 
-    @Field(() => [String], { description: 'An array of planet resource URLs that are in this film.' })
+    @Field(() => [Planet], { description: 'An array of planets that are in this film.' })
     public planets!: string[];
 
-    @Field(() => [String], { description: 'An array of starship resource URLs that are in this film.' })
+    @Field(() => [Starship], { description: 'An array of starships that are in this film.' })
     public starships!: string[];
 
-    @Field(() => [String], { description: 'An array of vehicle resource URLs that are in this film.' })
+    @Field(() => [Vehicle], { description: 'An array of vehicles that are in this film.' })
     public vehicles!: string[];
 
-    @Field(() => [String], { description: 'An array of species resource URLs that are in this film.' })
+    @Field(() => [Species], { description: 'An array of species that are in this film.' })
     public species!: string[];
 }

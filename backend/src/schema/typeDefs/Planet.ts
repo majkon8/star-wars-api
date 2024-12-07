@@ -1,5 +1,8 @@
 import { Field, ObjectType } from 'type-graphql';
 
+import Film from '@/schema/typeDefs/Film';
+import Person from '@/schema/typeDefs/Person';
+
 @ObjectType({ description: 'A Star Wars planet' })
 export default class Planet {
     @Field(() => String, { description: 'The name of this planet.' })
@@ -39,9 +42,9 @@ export default class Planet {
     @Field(() => String, { description: 'The average population of sentient beings inhabiting this planet.' })
     public population!: string;
 
-    @Field(() => [String], { description: 'An array of People URL Resources that live on this planet.' })
+    @Field(() => [Person], { description: 'An array of people that live on this planet.' })
     public residents!: string[];
 
-    @Field(() => [String], { description: 'An array of Film URL Resources that this planet has appeared in.' })
+    @Field(() => [Film], { description: 'An array of films that this planet has appeared in.' })
     public films!: string[];
 }

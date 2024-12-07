@@ -1,5 +1,10 @@
 import { Field, ObjectType } from 'type-graphql';
 
+import Film from '@/schema/typeDefs/Film';
+import Starship from '@/schema/typeDefs/Starship';
+import Vehicle from '@/schema/typeDefs/Vehicle';
+import Species from '@/schema/typeDefs/Species';
+
 @ObjectType({ description: 'A Star Wars person' })
 export default class Person {
     @Field(() => String, { description: 'The name of this person.' })
@@ -43,15 +48,15 @@ export default class Person {
     })
     public homeworld!: string;
 
-    @Field(() => [String], { description: 'An array of film resource URLs that this person has been in.' })
+    @Field(() => [Film], { description: 'An array of films that this person has been in.' })
     public films!: string[];
 
-    @Field(() => [String], { description: 'An array of species resource URLs that this person belongs to.' })
+    @Field(() => [Species], { description: 'An array of species that this person belongs to.' })
     public species!: string[];
 
-    @Field(() => [String], { description: 'An array of vehicle resource URLs that this person has piloted.' })
+    @Field(() => [Vehicle], { description: 'An array of vehicles that this person has piloted.' })
     public vehicles!: string[];
 
-    @Field(() => [String], { description: 'An array of starship resource URLs that this person has piloted.' })
+    @Field(() => [Starship], { description: 'An array of starships that this person has piloted.' })
     public starships!: string[];
 }

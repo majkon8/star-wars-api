@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { Query, Resolver, Arg } from 'type-graphql';
+import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import Starship from '@/schema/typeDefs/Starship';
 import { DataService } from '@/services/DataService';
@@ -24,5 +24,15 @@ export default class StarshipResolver {
         const starship = await this.dataService.getOne('starships', id);
 
         return starship;
+    }
+
+    @FieldResolver()
+    async pilots(@Root() starship: Starship) {
+        return this.dataService.getAdditionalData(starship.pilots, 'people');
+    }
+
+    @FieldResolver()
+    async films(@Root() starship: Starship) {
+        return this.dataService.getAdditionalData(starship.films, 'films');
     }
 }
