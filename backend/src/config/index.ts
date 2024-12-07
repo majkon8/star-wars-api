@@ -42,5 +42,6 @@ export const config: IConfig = {
     cache: {
         isEnabled: isEnabled('CACHE_ENABLED'),
         keyExpiresInMinutes: parseInt(env('CACHE_KEY_EXPIRES_IN_MINUTES'))
-    }
+    },
+    swapiUrl: env('SWAPI_URL')
 };
