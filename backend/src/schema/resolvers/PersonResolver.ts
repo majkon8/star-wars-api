@@ -42,13 +42,20 @@ export default class PersonResolver {
     }
 
     @FieldResolver()
+    async homeworld(@Root() person: Person) {
+        const planets = await this.dataService.getAdditionalData([person.homeworld], Resource.Planets);
+
+        return planets![0];
+    }
+
+    @FieldResolver()
     async films(@Root() person: Person) {
         return this.dataService.getAdditionalData(person.films, Resource.Films);
     }
 
     @FieldResolver()
     async species(@Root() person: Person) {
-        return this.dataService.getAdditionalData(person.species, Resource.People);
+        return this.dataService.getAdditionalData(person.species, Resource.Species);
     }
 
     @FieldResolver()

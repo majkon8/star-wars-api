@@ -1,6 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 
 import { Film } from '@/schema/typeDefs/Film';
+import { Planet } from '@/schema/typeDefs/Planet';
 import { Vehicle } from '@/schema/typeDefs/Vehicle';
 import { Species } from '@/schema/typeDefs/Species';
 import { Starship } from '@/schema/typeDefs/Starship';
@@ -44,8 +45,8 @@ export class Person {
     })
     public gender!: string;
 
-    @Field(() => String, {
-        description: 'The URL of a planet resource, a planet that this person was born on or inhabits.'
+    @Field(() => Planet, {
+        description: 'The planet that this person was born on or inhabits.'
     })
     public homeworld!: string;
 

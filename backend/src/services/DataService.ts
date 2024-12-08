@@ -74,7 +74,7 @@ export class DataService {
         return additionalData;
     }
 
-    private async getMany(resource: Resource, ids: string[]): Promise<Person[]> {
+    private async getMany(resource: Resource, ids: string[]) {
         const requests = ids.map(id => this.getOne(resource, +id));
 
         const data = await Promise.all(requests);

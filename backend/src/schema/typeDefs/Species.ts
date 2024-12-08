@@ -1,6 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 
 import { Film } from '@/schema/typeDefs/Film';
+import { Planet } from '@/schema/typeDefs/Planet';
 import { Person } from '@/schema/typeDefs/Person';
 import Pagination from '@/schema/typeDefs/Pagination';
 
@@ -39,7 +40,7 @@ export class Species {
     @Field(() => String, { description: 'The average lifespan of this species in years.' })
     public average_lifespan!: string;
 
-    @Field(() => String, { description: 'The URL of a planet resource, a planet that this species originates from.' })
+    @Field(() => Planet, { description: 'The planet that this species originates from.' })
     public homeworld!: string;
 
     @Field(() => String, { description: 'The language commonly spoken by this species.' })

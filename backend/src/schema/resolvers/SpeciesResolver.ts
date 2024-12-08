@@ -28,6 +28,13 @@ export default class SpeciesResolver {
     }
 
     @FieldResolver()
+    async homeworld(@Root() species: Species) {
+        const planets = await this.dataService.getAdditionalData([species.homeworld], Resource.Planets);
+
+        return planets![0];
+    }
+
+    @FieldResolver()
     async people(@Root() species: Species) {
         return this.dataService.getAdditionalData(species.people, Resource.People);
     }
