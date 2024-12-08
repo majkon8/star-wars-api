@@ -6,8 +6,8 @@ import { Vehicle } from '@/schema/typeDefs/Vehicle';
 import { Species } from '@/schema/typeDefs/Species';
 import { Starship } from '@/schema/typeDefs/Starship';
 
-@ObjectType({ description: 'A Star Wars film' })
-export default class Film {
+@ObjectType({ description: 'A Star Wars film.' })
+export class Film {
     @Field(() => String, { description: 'The title of this film.' })
     public title!: string;
 
@@ -42,4 +42,15 @@ export default class Film {
 
     @Field(() => [Species], { description: 'An array of species that are in this film.' })
     public species!: string[];
+}
+
+@ObjectType({
+    description: 'Unique word from all films openings paired with its number of occurrences in the text.'
+})
+export class UniqueWord {
+    @Field(() => String, { description: 'The word.' })
+    public word!: string;
+
+    @Field(() => Number, { description: 'The number of occurrences.' })
+    public count!: number;
 }
