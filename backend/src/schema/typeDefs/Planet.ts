@@ -1,10 +1,11 @@
 import { Field, ObjectType } from 'type-graphql';
 
 import Film from '@/schema/typeDefs/Film';
-import Person from '@/schema/typeDefs/Person';
+import { Person } from '@/schema/typeDefs/Person';
+import Pagination from '@/schema/typeDefs/Pagination';
 
 @ObjectType({ description: 'A Star Wars planet' })
-export default class Planet {
+export class Planet {
     @Field(() => String, { description: 'The name of this planet.' })
     public name!: string;
 
@@ -47,4 +48,17 @@ export default class Planet {
 
     @Field(() => [Film], { description: 'An array of films that this planet has appeared in.' })
     public films!: string[];
+}
+
+@ObjectType({ description: 'Paginated planets data' })
+export class AllPlanets {
+    @Field(() => Pagination, {
+        description: 'Pagination metadata'
+    })
+    public pagination!: Pagination;
+
+    @Field(() => [Planet], {
+        description: 'Planets data'
+    })
+    public data!: Planet[];
 }

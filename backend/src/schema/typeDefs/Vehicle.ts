@@ -1,10 +1,11 @@
 import { Field, ObjectType } from 'type-graphql';
 
 import Film from '@/schema/typeDefs/Film';
-import Person from '@/schema/typeDefs/Person';
+import { Person } from '@/schema/typeDefs/Person';
+import Pagination from '@/schema/typeDefs/Pagination';
 
 @ObjectType({ description: 'A Star Wars vehicle' })
-export default class Vehicle {
+export class Vehicle {
     @Field(() => String, {
         description: 'The name of this vehicle. The common name, such as "Sand Crawler" or "Speeder bike".'
     })
@@ -50,4 +51,17 @@ export default class Vehicle {
 
     @Field(() => [Film], { description: 'An array of films that this vehicle has appeared in.' })
     public films!: string[];
+}
+
+@ObjectType({ description: 'Paginated vehicles data' })
+export class AllVehicles {
+    @Field(() => Pagination, {
+        description: 'Pagination metadata'
+    })
+    public pagination!: Pagination;
+
+    @Field(() => [Vehicle], {
+        description: 'Vehicles data'
+    })
+    public data!: Vehicle[];
 }

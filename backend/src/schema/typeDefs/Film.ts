@@ -1,10 +1,10 @@
 import { Field, GraphQLISODateTime, Int, ObjectType } from 'type-graphql';
 
-import Person from '@/schema/typeDefs/Person';
-import Planet from '@/schema/typeDefs/Planet';
-import Starship from '@/schema/typeDefs/Starship';
-import Vehicle from '@/schema/typeDefs/Vehicle';
-import Species from '@/schema/typeDefs/Species';
+import { Person } from '@/schema/typeDefs/Person';
+import { Planet } from '@/schema/typeDefs/Planet';
+import { Vehicle } from '@/schema/typeDefs/Vehicle';
+import { Species } from '@/schema/typeDefs/Species';
+import { Starship } from '@/schema/typeDefs/Starship';
 
 @ObjectType({ description: 'A Star Wars film' })
 export default class Film {

@@ -2,17 +2,17 @@ import { Service } from 'typedi';
 import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import { Resource } from '@/enums/resources';
-import Species from '@/schema/typeDefs/Species';
 import { DataService } from '@/services/DataService';
+import { AllSpecies, Species } from '@/schema/typeDefs/Species';
 
 @Service()
 @Resolver(Species)
 export default class SpeciesResolver {
     constructor(private readonly dataService: DataService) {}
-    @Query(() => [Species], {
+    @Query(() => AllSpecies, {
         description: 'Gets all species of all Star Wars films'
     })
-    public async allSpecies(@Arg('page') page: number): Promise<[Species]> {
+    public async allSpecies(@Arg('page') page: number): Promise<AllSpecies> {
         const species = await this.dataService.getAll(Resource.Species, page);
 
         return species;
