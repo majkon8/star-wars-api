@@ -1,4 +1,4 @@
-import { Field, GraphQLISODateTime, Int, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 
 import { Person } from '@/schema/typeDefs/Person';
 import { Planet } from '@/schema/typeDefs/Planet';
@@ -20,13 +20,13 @@ export class Film {
     @Field(() => String, { description: 'The name of the director of this film.' })
     public director!: string;
 
-    @Field(() => [String], { description: 'The name(s) of the producer(s) of this film. Comma separated.' })
-    public producers!: string[];
+    @Field(() => String, { description: 'The name(s) of the producer(s) of this film. Comma separated.' })
+    public producer!: string;
 
-    @Field(() => GraphQLISODateTime, {
+    @Field(() => String, {
         description: 'The ISO 8601 date format of film release at original creator country.'
     })
-    public release_date!: Date;
+    public release_date!: string;
 
     @Field(() => [Person], { description: 'An array of people that are in this film.' })
     public characters!: string[];

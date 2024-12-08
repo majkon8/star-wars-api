@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { IsIn, IsNumber } from 'class-validator';
 import { ArgsType, Field, Int } from 'type-graphql';
 
