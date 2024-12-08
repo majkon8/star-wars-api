@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { Service } from 'typedi';
 
-import { Resource } from '@/types/resources';
 import Person from '@/schema/typeDefs/Person';
+
+import type { Resource } from '@/enums/resources';
 
 @Service()
 export class DataService {
