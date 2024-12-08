@@ -13,5 +13,6 @@ import type { GraphQLSchema } from 'graphql';
 export const buildGqlSchema = async (): Promise<GraphQLSchema> =>
     buildSchema({
         resolvers: [FilmResolver, PersonResolver, SpeciesResolver, VehicleResolver, StarshipResolver, PlanetResolver],
-        container: Container
+        container: Container,
+        validate: true
     });

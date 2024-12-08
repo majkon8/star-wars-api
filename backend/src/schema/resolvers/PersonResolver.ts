@@ -1,6 +1,7 @@
 import { Service } from 'typedi';
 import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
+import { Resource } from '@/enums/resources';
 import Person from '@/schema/typeDefs/Person';
 import { DataService } from '@/services/DataService';
 
@@ -12,7 +13,7 @@ export default class PersonResolver {
         description: 'Gets all characters of all Star Wars films'
     })
     public async allPeople(): Promise<[Person]> {
-        const people = await this.dataService.getAll('people');
+        const people = await this.dataService.getAll(Resource.People);
 
         return people;
     }
@@ -21,28 +22,28 @@ export default class PersonResolver {
         description: 'Gets one Star Wars character by ID'
     })
     public async person(@Arg('id') id: number): Promise<Person> {
-        const person = await this.dataService.getOne('people', id);
+        const person = await this.dataService.getOne(Resource.People, id);
 
         return person;
     }
 
     @FieldResolver()
     async films(@Root() person: Person) {
-        return this.dataService.getAdditionalData(person.films, 'films');
+        return this.dataService.getAdditionalData(person.films, Resource.Films);
     }
 
     @FieldResolver()
     async species(@Root() person: Person) {
-        return this.dataService.getAdditionalData(person.species, 'species');
+        return this.dataService.getAdditionalData(person.species, Resource.People);
     }
 
     @FieldResolver()
     async starships(@Root() person: Person) {
-        return this.dataService.getAdditionalData(person.starships, 'starships');
+        return this.dataService.getAdditionalData(person.starships, Resource.Starships);
     }
 
     @FieldResolver()
     async vehicles(@Root() person: Person) {
-        return this.dataService.getAdditionalData(person.vehicles, 'vehicles');
+        return this.dataService.getAdditionalData(person.vehicles, Resource.Vehicles);
     }
 }

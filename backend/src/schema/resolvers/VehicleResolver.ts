@@ -1,6 +1,7 @@
 import { Service } from 'typedi';
 import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
+import { Resource } from '@/enums/resources';
 import Vehicle from '@/schema/typeDefs/Vehicle';
 import { DataService } from '@/services/DataService';
 
@@ -12,7 +13,7 @@ export default class VehicleResolver {
         description: 'Gets all vehicles of all Star Wars films'
     })
     public async allVehicles(): Promise<[Vehicle]> {
-        const vehicles = await this.dataService.getAll('vehicles');
+        const vehicles = await this.dataService.getAll(Resource.Vehicles);
 
         return vehicles;
     }
@@ -21,18 +22,18 @@ export default class VehicleResolver {
         description: 'Gets one Star Wars vehicle by ID'
     })
     public async vehicle(@Arg('id') id: number): Promise<Vehicle> {
-        const vehicle = await this.dataService.getOne('vehicles', id);
+        const vehicle = await this.dataService.getOne(Resource.Vehicles, id);
 
         return vehicle;
     }
 
     @FieldResolver()
     async pilots(@Root() vehicle: Vehicle) {
-        return this.dataService.getAdditionalData(vehicle.pilots, 'people');
+        return this.dataService.getAdditionalData(vehicle.pilots, Resource.People);
     }
 
     @FieldResolver()
     async films(@Root() vehicle: Vehicle) {
-        return this.dataService.getAdditionalData(vehicle.films, 'films');
+        return this.dataService.getAdditionalData(vehicle.films, Resource.Films);
     }
 }
