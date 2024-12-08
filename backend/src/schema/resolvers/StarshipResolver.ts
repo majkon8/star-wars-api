@@ -12,8 +12,8 @@ export default class StarshipResolver {
     @Query(() => [Starship], {
         description: 'Gets all starships of all Star Wars films'
     })
-    public async allStarships(): Promise<[Starship]> {
-        const starships = await this.dataService.getAll(Resource.Starships);
+    public async allStarships(@Arg('page') page: number): Promise<[Starship]> {
+        const starships = await this.dataService.getAll(Resource.Starships, page);
 
         return starships;
     }

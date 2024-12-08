@@ -8,11 +8,11 @@ import Species from '@/schema/typeDefs/Species';
 import Starship from '@/schema/typeDefs/Starship';
 
 export type ICacheRedis = {
-    [key: `/${Resource.Films}`]: Film[];
-    [key: `/${Resource.People}`]: Person[];
-    [key: `/${Resource.Planets}`]: Planet[];
-    [key: `/${Resource.Species}`]: Species[];
-    [key: `/${Resource.Starships}`]: Starship[];
+    [key: `/${Resource.Films}/?page=${number}`]: Film[];
+    [key: `/${Resource.People}/?page=${number}`]: Person[];
+    [key: `/${Resource.Planets}/?page=${number}`]: Planet[];
+    [key: `/${Resource.Species}/?page=${number}`]: Species[];
+    [key: `/${Resource.Starships}/?page=${number}`]: Starship[];
     [key: `/${Resource.Vehicles}`]: Vehicle[];
     [key: `/${Resource.Films}/${string}`]: Film;
     [key: `/${Resource.People}/${string}`]: Person;

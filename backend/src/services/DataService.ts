@@ -14,8 +14,9 @@ export class DataService {
         private readonly cacheManager: RedisManager<ICacheRedis>
     ) {}
 
-    async getAll(resource: Resource) {
-        const cacheKey = `/${resource}` as keyof ICacheRedis;
+    async getAll(resource: Resource, page?: number) {
+        const endpoint = `/${resource}/?page=${page}`;
+        const cacheKey = endpoint as keyof ICacheRedis;
 
         if (await this.cacheManager.exists(cacheKey)) {
             const results = await this.cacheManager.get(cacheKey);
@@ -25,7 +26,7 @@ export class DataService {
 
         const {
             data: { results }
-        } = await axios.get(`/${resource}`);
+        } = await axios.get(endpoint);
 
         await this.cacheManager.set(cacheKey, results);
 

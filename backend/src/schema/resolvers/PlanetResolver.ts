@@ -12,8 +12,8 @@ export default class PlanetResolver {
     @Query(() => [Planet], {
         description: 'Gets all planets of all Star Wars films'
     })
-    public async allPlanets(): Promise<[Planet]> {
-        const planets = await this.dataService.getAll(Resource.Planets);
+    public async allPlanets(@Arg('page') page: number): Promise<[Planet]> {
+        const planets = await this.dataService.getAll(Resource.Planets, page);
 
         return planets;
     }

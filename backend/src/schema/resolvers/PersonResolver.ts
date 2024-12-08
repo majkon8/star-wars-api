@@ -12,8 +12,8 @@ export default class PersonResolver {
     @Query(() => [Person], {
         description: 'Gets all characters of all Star Wars films'
     })
-    public async allPeople(): Promise<[Person]> {
-        const people = await this.dataService.getAll(Resource.People);
+    public async allPeople(@Arg('page') page: number): Promise<[Person]> {
+        const people = await this.dataService.getAll(Resource.People, page);
 
         return people;
     }

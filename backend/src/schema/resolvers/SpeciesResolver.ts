@@ -12,8 +12,8 @@ export default class SpeciesResolver {
     @Query(() => [Species], {
         description: 'Gets all species of all Star Wars films'
     })
-    public async allSpecies(): Promise<[Species]> {
-        const species = await this.dataService.getAll(Resource.Species);
+    public async allSpecies(@Arg('page') page: number): Promise<[Species]> {
+        const species = await this.dataService.getAll(Resource.Species, page);
 
         return species;
     }

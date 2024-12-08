@@ -12,8 +12,8 @@ export default class VehicleResolver {
     @Query(() => [Vehicle], {
         description: 'Gets all vehicles of all Star Wars films'
     })
-    public async allVehicles(): Promise<[Vehicle]> {
-        const vehicles = await this.dataService.getAll(Resource.Vehicles);
+    public async allVehicles(@Arg('page') page: number): Promise<[Vehicle]> {
+        const vehicles = await this.dataService.getAll(Resource.Vehicles, page);
 
         return vehicles;
     }
