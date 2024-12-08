@@ -7,7 +7,8 @@
     "scripts": {
         "eslint-backend": "cd backend; npm run eslint; npm run type-check",
         "prettier-backend": "cd backend; npm run prettier",
-        "eslint-check": "npm run eslint-backend"
+        "eslint-check": "npm run eslint-backend",
+        "generate-docs": "magidoc generate"
     },
     "license": "ISC",
     "devDependencies": {
