@@ -5,7 +5,7 @@ import { RedisManager } from '@/services/redis/RedisManager';
 
 import type { ICacheRedis } from '@/types/redis';
 import type { Resource } from '@/enums/resources';
-import type Person from '@/schema/typeDefs/Person';
+import type { Person } from '@/schema/typeDefs/Person';
 
 @Service()
 export class DataService {
@@ -14,22 +14,27 @@ export class DataService {
         private readonly cacheManager: RedisManager<ICacheRedis>
     ) {}
 
-    async getAll(resource: Resource) {
-        const cacheKey = `/${resource}` as keyof ICacheRedis;
+    async getAll(resource: Resource, page?: number) {
+        const endpoint = `/${resource}${page ? `/?page=${page}` : ''}`;
+        const cacheKey = endpoint as keyof ICacheRedis;
 
         if (await this.cacheManager.exists(cacheKey)) {
-            const results = await this.cacheManager.get(cacheKey);
+            const data = await this.cacheManager.get(cacheKey);
 
-            return results;
+            return data;
         }
 
         const {
-            data: { results }
-        } = await axios.get(`/${resource}`);
+            data: { results, next, previous, count }
+        } = await axios.get(endpoint);
 
-        await this.cacheManager.set(cacheKey, results);
+        const data = page
+            ? { data: results, pagination: { nextPage: !!next, previousPage: !!previous, total: count } }
+            : results;
 
-        return results;
+        await this.cacheManager.set(cacheKey, data);
+
+        return data;
     }
 
     async getOne(resource: Resource, id: number) {

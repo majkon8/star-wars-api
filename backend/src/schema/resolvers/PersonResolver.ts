@@ -2,18 +2,18 @@ import { Service } from 'typedi';
 import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import { Resource } from '@/enums/resources';
-import Person from '@/schema/typeDefs/Person';
 import { DataService } from '@/services/DataService';
+import { AllPeople, Person } from '@/schema/typeDefs/Person';
 
 @Service()
 @Resolver(Person)
 export default class PersonResolver {
     constructor(private readonly dataService: DataService) {}
-    @Query(() => [Person], {
+    @Query(() => AllPeople, {
         description: 'Gets all characters of all Star Wars films'
     })
-    public async allPeople(): Promise<[Person]> {
-        const people = await this.dataService.getAll(Resource.People);
+    public async allPeople(@Arg('page') page: number): Promise<AllPeople> {
+        const people = await this.dataService.getAll(Resource.People, page);
 
         return people;
     }

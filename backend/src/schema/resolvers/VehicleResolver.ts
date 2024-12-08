@@ -2,18 +2,18 @@ import { Service } from 'typedi';
 import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import { Resource } from '@/enums/resources';
-import Vehicle from '@/schema/typeDefs/Vehicle';
+import { AllVehicles, Vehicle } from '@/schema/typeDefs/Vehicle';
 import { DataService } from '@/services/DataService';
 
 @Service()
 @Resolver(Vehicle)
 export default class VehicleResolver {
     constructor(private readonly dataService: DataService) {}
-    @Query(() => [Vehicle], {
+    @Query(() => AllVehicles, {
         description: 'Gets all vehicles of all Star Wars films'
     })
-    public async allVehicles(): Promise<[Vehicle]> {
-        const vehicles = await this.dataService.getAll(Resource.Vehicles);
+    public async allVehicles(@Arg('page') page: number): Promise<AllVehicles> {
+        const vehicles = await this.dataService.getAll(Resource.Vehicles, page);
 
         return vehicles;
     }
