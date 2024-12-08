@@ -42,11 +42,3 @@ You can run tests with `npm run test`.
 ## Documentation
 
 You can generate documentation by running `npm run generate-docs` command in root project directory when the project running. By default the documentation configuration gets port 3000 as the port that the app is running on so if you changed that in .env file remember to also change it in `magidoc.mjs` file. After generating you can access documentation at `http://localhost:4000`.
-
-## Google Cloud Project configuration
-
-For the backend google/oauth/gmail functionality to work the connected google cloud project has to have the following configured
-
--   [OAuth 2.0 Client ID](https://console.cloud.google.com/apis/credentials), used in backend env and for oauth microservice. Used credential should have the _frontend app_ url in **Authorized JavaScript origins** and `[domain]/api/webhooks/google` in **Authorized redirect URIs**
--   [OAuth consent screen](https://console.cloud.google.com/apis/credentials/consent) with scopes `./auth/userinfo.email` and `./auth/userinfo.profile`
--   `Gmail API` and `People API` [enabled](https://console.cloud.google.com/apis/dashboard)
