@@ -1,10 +1,11 @@
 import { Service } from 'typedi';
 import { Query, Resolver, FieldResolver, Root, Args } from 'type-graphql';
 
-import Film from '@/schema/typeDefs/Film';
 import { Resource } from '@/enums/resources';
 import { DataService } from '@/services/DataService';
 import FilmArguments from '@/schema/arguments/FilmArgs';
+import { Film, UniqueWord } from '@/schema/typeDefs/Film';
+import countWordOccurrences from '@/helpers/countWordOccurences';
 
 @Service()
 @Resolver(Film)
@@ -13,7 +14,7 @@ export default class FilmResolver {
     @Query(() => [Film], {
         description: 'Gets all Star Wars films'
     })
-    public async allFilms(): Promise<[Film]> {
+    public async allFilms(): Promise<Film[]> {
         const films = await this.dataService.getAll(Resource.Films);
 
         return films;
@@ -26,6 +27,23 @@ export default class FilmResolver {
         const film = await this.dataService.getOne(Resource.Films, args.episode);
 
         return film;
+    }
+
+    @Query(() => [UniqueWord], {
+        description: 'Gets unique words from all films openings paired with their number of occurrences in the text.'
+    })
+    public async uniqueWords(): Promise<UniqueWord[]> {
+        const films = await this.dataService.getAll(Resource.Films);
+
+        let mergedOpenings = '';
+
+        for (const film of films) {
+            mergedOpenings += `${film.opening_crawl}\n\n`;
+        }
+
+        const words = countWordOccurrences(mergedOpenings);
+
+        return words;
     }
 
     @FieldResolver()
