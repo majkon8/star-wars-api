@@ -74,3 +74,11 @@ export class AllPeople {
     })
     public data!: Person[];
 }
+
+@ObjectType({
+    description: 'Character that appears the most often across all of the openings of the film.'
+})
+export class MostMentionedCharacters {
+    @Field(() => [String], { description: 'Array of characters names.' })
+    public names!: string[];
+}

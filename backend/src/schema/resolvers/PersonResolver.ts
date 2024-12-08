@@ -3,7 +3,8 @@ import { Query, Resolver, Arg, FieldResolver, Root } from 'type-graphql';
 
 import { Resource } from '@/enums/resources';
 import { DataService } from '@/services/DataService';
-import { AllPeople, Person } from '@/schema/typeDefs/Person';
+import findMostFrequentNames from '@/helpers/findMostFrequentNames';
+import { AllPeople, MostMentionedCharacters, Person } from '@/schema/typeDefs/Person';
 
 @Service()
 @Resolver(Person)
@@ -25,6 +26,19 @@ export default class PersonResolver {
         const person = await this.dataService.getOne(Resource.People, id);
 
         return person;
+    }
+
+    @Query(() => MostMentionedCharacters, {
+        description: 'Gets a character that appears the most often across all of the openings of the film.'
+    })
+    public async mostMentionedCharacters(): Promise<MostMentionedCharacters> {
+        const mergedOpenings = await this.dataService.getMergedOpenings();
+        const allCharacters = await this.dataService.getAll(Resource.People);
+        const characterNames = allCharacters.map((character: { name: string }) => character.name);
+
+        const result = findMostFrequentNames(mergedOpenings, characterNames);
+
+        return { names: result };
     }
 
     @FieldResolver()
