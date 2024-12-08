@@ -1,5 +1,3 @@
-import { promisify } from 'util';
-
 import type { RedisScripts, RedisModules, RedisFunctions, RedisClientType } from 'redis';
 
 export class RedisManager<IRedis extends Record<string, unknown>> {
@@ -9,19 +7,12 @@ export class RedisManager<IRedis extends Record<string, unknown>> {
         private readonly keyExpiresInMinutes = 0
     ) {}
 
-    private _get = promisify(this.redis.get);
-    private _set = promisify(this.redis.set);
-    private _setEx = promisify(this.redis.setEx);
-    private _del = promisify(this.redis.del);
-    private _exists = promisify(this.redis.exists);
-    private _scan = promisify(this.redis.scan);
-
     async get<T extends keyof IRedis>(key: T | null = null) {
         if (!key || !this.isEnabled) {
             return null;
         }
 
-        const result = await this._get(key);
+        const result = await this.redis.get(key as string);
 
         if (!result) {
             return null;
@@ -38,9 +29,9 @@ export class RedisManager<IRedis extends Record<string, unknown>> {
         const jsonValue = JSON.stringify(value);
 
         if (expiresInMinutes) {
-            await this._setEx(key, expiresInMinutes * 60, jsonValue);
+            await this.redis.setEx(key as string, expiresInMinutes * 60, jsonValue);
         } else {
-            await this._set(key, jsonValue);
+            await this.redis.set(key as string, jsonValue);
         }
     }
 
@@ -49,7 +40,7 @@ export class RedisManager<IRedis extends Record<string, unknown>> {
             return;
         }
 
-        await this._del(key);
+        await this.redis.del(key as string);
     }
 
     async exists(key: string): Promise<boolean> {
@@ -57,29 +48,27 @@ export class RedisManager<IRedis extends Record<string, unknown>> {
             return new Promise(resolve => resolve(false));
         }
 
-        const exists = await this._exists(key);
+        const exists = await this.redis.exists(key);
 
         return !!exists;
     }
 
-    private async _eachScan(pattern: string) {
+    async eachScan(pattern: string) {
         const keys: Array<keyof IRedis> = [];
-        let cursor = '';
+        let cursor = 0;
 
-        while (cursor !== '0') {
-            const scanResults = await this._scan(cursor || 0, 'MATCH', pattern);
-
-            const [newCursor, matchingKeys] = scanResults;
+        do {
+            const { cursor: newCursor, keys: matchingKeys } = await this.redis.scan(cursor, { MATCH: pattern });
 
             cursor = newCursor;
             keys.push(...matchingKeys);
-        }
+        } while (cursor != 0);
 
         return keys;
     }
 
     async runActionOnKeyPattern(pattern: string, callback: (matchingKeys: Array<keyof IRedis>) => Promise<void>) {
-        const keys = await this._eachScan(pattern);
+        const keys = await this.eachScan(pattern);
 
         await callback(keys);
     }
