@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { Inject, Service } from 'typedi';
 
+import { Resource } from '@/enums/resources';
 import { RedisManager } from '@/services/redis/RedisManager';
 
 import type { ICacheRedis } from '@/types/redis';
-import type { Resource } from '@/enums/resources';
 import type { Person } from '@/schema/typeDefs/Person';
 
 @Service()
@@ -80,5 +80,17 @@ export class DataService {
         const data = await Promise.all(requests);
 
         return data;
+    }
+
+    async getMergedOpenings() {
+        const films = await this.getAll(Resource.Films);
+
+        let mergedOpenings = '';
+
+        for (const film of films) {
+            mergedOpenings += `${film.opening_crawl}\n\n`;
+        }
+
+        return mergedOpenings;
     }
 }

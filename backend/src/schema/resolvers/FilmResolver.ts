@@ -5,7 +5,7 @@ import { Resource } from '@/enums/resources';
 import { DataService } from '@/services/DataService';
 import FilmArguments from '@/schema/arguments/FilmArgs';
 import { Film, UniqueWord } from '@/schema/typeDefs/Film';
-import countWordOccurrences from '@/helpers/countWordOccurences';
+import countWordOccurrences from '@/helpers/countWordOccurrences';
 
 @Service()
 @Resolver(Film)
@@ -33,13 +33,7 @@ export default class FilmResolver {
         description: 'Gets unique words from all films openings paired with their number of occurrences in the text.'
     })
     public async uniqueWords(): Promise<UniqueWord[]> {
-        const films = await this.dataService.getAll(Resource.Films);
-
-        let mergedOpenings = '';
-
-        for (const film of films) {
-            mergedOpenings += `${film.opening_crawl}\n\n`;
-        }
+        const mergedOpenings = await this.dataService.getMergedOpenings();
 
         const words = countWordOccurrences(mergedOpenings);
 
