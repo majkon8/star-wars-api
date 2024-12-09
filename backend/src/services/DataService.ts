@@ -5,7 +5,6 @@ import { Resource } from '@/enums/resources';
 import { RedisManager } from '@/services/redis/RedisManager';
 
 import type { ICacheRedis } from '@/types/redis';
-import type { Person } from '@/schema/typeDefs/Person';
 
 @Service()
 export class DataService {

@@ -19,7 +19,7 @@ const corsOptions: CorsOptions = {
         }
     },
     credentials: true,
-    exposedHeaders: ['csrf-token', 'vf']
+    exposedHeaders: ['csrf-token']
 };
 
 export const corsPlugin = cors(corsOptions);
