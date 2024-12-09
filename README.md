@@ -37,7 +37,9 @@ You can run backend with `npm run dev`.
 
 ### Backend
 
-You can run tests with `npm run test`.
+-   Go to backend directory: `cd backend/`
+-   Copy `.env.test` file from `.env.example` by `cp .env.example .env.test` and edit `.env.test` file with your variables (you can use default variables without changing anything)
+-   You can run tests with `npm run test`.
 
 ## Documentation
 
