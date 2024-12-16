@@ -3,7 +3,7 @@ volumes:
 
 services:
     redis_cache:
-        image: ${SWARM_PROJECT_REGISTRY}/${COMPOSE_PROJECT_NAME}/redis_cache
+        image: ${COMPOSE_PROJECT_NAME}/redis_cache
         container_name: ${COMPOSE_PROJECT_NAME}.redis_cache.docker
         restart: unless-stopped
         build:
