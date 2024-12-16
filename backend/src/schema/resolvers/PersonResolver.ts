@@ -34,6 +34,7 @@ export default class PersonResolver {
     public async mostMentionedCharacters(): Promise<MostMentionedCharacters> {
         const mergedOpenings = await this.dataService.getMergedOpenings();
         const allCharacters = await this.dataService.getAll(Resource.People);
+
         const characterNames = allCharacters.map((character: { name: string }) => character.name);
 
         const result = findMostFrequentNames(mergedOpenings, characterNames);
