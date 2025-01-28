@@ -1,6 +1,6 @@
-# Star Wars API task
+# Star Wars API
 
-Star Wars API task
+GraphQL SWAPI wrapper
 
 ## Prerequisites
 
