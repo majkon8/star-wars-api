@@ -15,7 +15,7 @@ Follow steps listed below for installation.
 
 ### Clone repository
 
-`git clone git@github.com:majkon8/star-wars-api-task.git`
+`git clone git@github.com:majkon8/star-wars-graphql-api.git`
 
 ### Install backend
 
@@ -25,7 +25,7 @@ Follow steps listed below for installation.
 
 #### If you are using Docker please follow steps below
 
--   Run `npm run dc-up` - this command will build docker-compose and will connect MySQL master with MySQL slave by replication. Please note that during building replica there can be some warnings because docker needs some time to run (and when it's not running yet, script is not able to connect to mysql and build replica), so do not worry - this step can take up to 1 minute.
+-   Run `npm run dc-up` - this command will build docker-compose.
 
 ## Run
 
